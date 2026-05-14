@@ -9,6 +9,7 @@ function Header() {
     flex 
     justify-between items-center 
     w-full h-16 
+    p-4 md:p-8
     text-gray-50"
     >
       <Link
@@ -17,7 +18,7 @@ function Header() {
         text-2xl 
         flex
         items-center
-        gap-2 p-4 md:p-8
+        gap-2
       hover:text-cyan-400
         transition-colors duration-200
         "
@@ -29,7 +30,7 @@ function Header() {
       <nav
         className="
       flex 
-      gap-4 p-4 md:p-8 
+      gap-4  
       text-xl"
       >
         <Link

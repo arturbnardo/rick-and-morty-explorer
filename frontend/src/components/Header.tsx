@@ -9,7 +9,7 @@ function Header() {
     flex 
     justify-between items-center 
     w-full h-16 
-    text-gray-50 "
+    text-gray-50"
     >
       <Link
         to="/"
@@ -29,13 +29,13 @@ function Header() {
         className="
       flex 
       gap-4 p-4 md:p-8 
-      text-xl "
+      text-xl"
       >
         <Link
           to="/"
           className="
         hover:text-cyan-400 
-        transition-colors duration-200"
+          transition-colors duration-200"
         >
           Home
         </Link>

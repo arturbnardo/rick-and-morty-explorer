@@ -2,12 +2,12 @@ export type CharacterGender = "Female" | "Male" | "Genderless" | "unknown";
 
 export type CharacterStatus = "Alive" | "Dead" | "unknown";
 
-export type Origin = {
+export type CharacterOrigin = {
   name: string;
   url: string;
 };
 
-export type Location = {
+export type CharacterLocation = {
   name: string;
   url: string;
 };
@@ -19,8 +19,8 @@ export interface Character {
   species: string;
   type: string;
   gender: CharacterGender;
-  origin: Origin;
-  location: Location;
+  origin: CharacterOrigin;
+  location: CharacterLocation;
   image: string;
   episode: string[];
   url: string;

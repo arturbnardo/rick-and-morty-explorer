@@ -27,14 +27,14 @@ export interface Character {
   created: string;
 }
 
-export type Info = {
+export type ApiInfo = {
   count: number;
   pages: number;
-  next: string;
-  prev: string;
+  next: string | null;
+  prev: string | null;
 };
 
 export interface PaginatedResponse<T> {
-  info: Info;
+  info: ApiInfo;
   results: T[];
 }

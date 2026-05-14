@@ -18,11 +18,12 @@ function Header() {
         flex
         items-center
         gap-2 p-4 md:p-8
-       hover:text-cyan-400
-         transition-colors duration-200"
+      hover:text-cyan-400
+        transition-colors duration-200
+        "
       >
         <FlaskConical />
-        Rick and Morty Explorer
+        <span className="hidden md:block">Rick and Morty Explorer</span>
       </Link>
 
       <nav

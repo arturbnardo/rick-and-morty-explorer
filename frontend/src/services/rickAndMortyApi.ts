@@ -1,4 +1,5 @@
-import type { Character, PaginatedResponse } from "../types/character";
+import type { PaginatedResponse } from "../types/api-info";
+import type { Character } from "../types/character";
 import type { CharacterFilters } from "../types/filters";
 const BASE_URL = "https://rickandmortyapi.com/api";
 

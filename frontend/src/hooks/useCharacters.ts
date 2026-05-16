@@ -12,8 +12,8 @@ export const useCharacters = () => {
     const fetchCharacters = async () => {
       try {
         setLoading(true);
-        const result = await getCharacters();
-        setData(result);
+        const characters = await getCharacters();
+        setData(characters);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unkown error");
       } finally {

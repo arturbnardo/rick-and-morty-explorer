@@ -4,14 +4,13 @@ interface StatusChipProps {
   status: CharacterStatus;
   species: string;
 }
+const statusColor = {
+  Alive: "bg-green-500",
+  Dead: "bg-red-500",
+  unknown: "bg-gray-500",
+};
 
 function StatusChip({ status, species }: StatusChipProps) {
-  const statusColor = {
-    Alive: "bg-green-500",
-    Dead: "bg-red-500",
-    unknown: "bg-gray-500",
-  };
-
   return (
     <div className="flex items-center gap-2 text-white">
       <div className={`w-2 h-2 rounded-full ${statusColor[status]}`}></div>

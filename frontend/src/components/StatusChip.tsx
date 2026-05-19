@@ -14,7 +14,7 @@ function StatusChip({ status, species }: StatusChipProps) {
   return (
     <div className="flex items-center gap-2 text-white">
       <div className={`w-2 h-2 rounded-full ${statusColor[status]}`}></div>
-      <span>
+      <span className="mt-2">
         {status} - {species}
       </span>
     </div>

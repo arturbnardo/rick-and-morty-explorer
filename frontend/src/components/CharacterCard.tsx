@@ -26,30 +26,62 @@ function CharacterCard({
   return (
     <div
       className="
-    flex
-    w-full
-    mx-auto
-    max-w-140 h-52 
-    bg-gray-800 
-    border-2 
-    border-cyan-800 
-    rounded shadow-lg"
-    >
-      <img src={image} alt={name} className="h-full object-cover" />
+    flex flex-col
+    sm:flex-row
 
-      <div className="flex flex-col p-4 w-full h-full">
-        <h2 className="text-white font-bold text-2xl">{name}</h2>
+    w-full
+    max-w-sm
+    sm:max-w-140
+
+    mx-auto
+
+    overflow-hidden
+
+    rounded-2xl
+    border border-cyan-800
+
+    bg-gray-800
+    shadow-lg
+  "
+    >
+      <img
+        src={image}
+        alt={name}
+        className="
+      h-60
+      w-full
+      object-cover
+
+      sm:h-auto
+      sm:w-44
+    "
+      />
+
+      <div className="flex flex-1 flex-col p-4">
+        <h2 className="text-xl sm:text-2xl font-bold text-white">{name}</h2>
 
         <StatusChip status={status} species={species} />
-        <div className="flex mt-auto justify-end">
+
+        <div className="mt-auto flex justify-end">
           <button
             onClick={handleViewDetails}
-            className="w-32 h-12
-           bg-cyan-700 text-white text-base font-bold 
-           rounded 
-           hover:cursor-pointer
-           hover:bg-cyan-900
-           transition-colors duration-300"
+            className="
+          h-12
+          w-full
+          sm:w-32
+          mt-4
+
+          rounded-xl
+
+          bg-cyan-700
+          text-base
+          font-bold
+          text-white
+
+          transition-colors duration-300
+          hover:bg-cyan-900
+          hover:cursor-pointer
+        "
           >
             View details
           </button>

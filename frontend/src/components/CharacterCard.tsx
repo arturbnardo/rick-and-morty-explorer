@@ -26,7 +26,9 @@ function CharacterCard({
   return (
     <div
       className="
-    flex 
+    flex
+    w-full
+    mx-auto
     max-w-140 h-52 
     bg-gray-800 
     border-2 

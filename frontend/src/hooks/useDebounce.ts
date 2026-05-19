@@ -1,14 +1,31 @@
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
-export const useDebounce = (value: string) => {
-  const [debouncedQuery, setDebouncedQuery] = useState("");
+export function useDebounce(delay = 500) {
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const debounce = useCallback(
+    <Args extends unknown[]>(
+      callback: (...args: Args) => void,
+      ...args: Args
+    ) => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(() => {
+        callback(...args);
+      }, delay);
+    },
+    [delay],
+  );
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedQuery(value);
-    }, 500);
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
-    return () => clearTimeout(timer);
-  }, [value]);
-  return debouncedQuery;
-};
+  return { debounce };
+}

@@ -3,29 +3,48 @@ import { getCharacters } from "../services/rickAndMortyApi";
 import type { PaginatedResponse } from "../types/api-info";
 import type { Character } from "../types/character";
 import type { CharacterFilterStatus } from "../types/filters";
+import { useDebounce } from "./useDebounce";
+import { isAxiosError } from "axios";
+import toast from "react-hot-toast";
 
-export const useCharacters = (
-  name?: string,
-  status?: CharacterFilterStatus,
-) => {
+interface UseCharactersProps {
+  name?: string;
+  status?: CharacterFilterStatus;
+  page: number;
+}
+
+export const useCharacters = ({ page, name, status }: UseCharactersProps) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<PaginatedResponse<Character> | null>(null);
   const [error, setError] = useState("");
+
+  const { debounce } = useDebounce(750);
 
   useEffect(() => {
     const fetchCharacters = async () => {
       try {
         setLoading(true);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        const characters = await getCharacters({ name, status });
+        const characters = await getCharacters({
+          name: name?.trim(),
+          status,
+          page,
+        });
         setData(characters);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Unkown error");
+        if (isAxiosError(err) && err.status === 404) {
+          toast.error("Failed to find characters. Please try again.");
+          setData((state) =>
+            state !== null ? { ...state, results: [] } : null,
+          );
+          return;
+        }
+
+        setError(isAxiosError(err) ? err.message : "");
       } finally {
         setLoading(false);
       }
     };
-    fetchCharacters();
-  }, [name, status]);
+    debounce(fetchCharacters);
+  }, [debounce, name, status, page]);
   return { loading, data, error };
 };

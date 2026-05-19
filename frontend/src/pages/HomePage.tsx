@@ -4,6 +4,8 @@ import CharacterSkeleton from "../components/CharacterSkeleton";
 import { useCharacters } from "../hooks/useCharacters";
 import type { CharacterFilterStatus } from "../types/filters";
 
+const statusOptions = ["All", "Alive", "Dead", "unknown"] as const;
+
 function HomePage() {
   const [inputValue, setInputValue] = useState("");
   const [page, setPage] = useState(1);
@@ -11,6 +13,7 @@ function HomePage() {
   const [statusFilter, setStatusFilter] = useState<
     CharacterFilterStatus | undefined
   >(undefined);
+
   const {
     loading: loadingCharacters,
     data: characters,
@@ -35,44 +38,79 @@ function HomePage() {
     <div>
       <div
         className="
-       flex
-       justify-center
-       gap-2 my-6 h-12
-       "
+        flex flex-col items-center gap-4 my-6
+        md:flex-row md:justify-center
+      "
       >
         <input
           className="
-          bg-gray-800
-          rounded
-          p-2
-          w-64
-          text-white"
+            bg-gray-800
+            rounded-2xl
+            px-4
+            py-3
+            w-72
+            text-white
+            outline-none
+            border border-gray-700
+            focus:border-cyan-500
+            transition-all
+          "
           type="text"
           value={inputValue}
           placeholder="Search character..."
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <select
+
+        <div
           className="
-          cursor-pointer
-          bg-cyan-700
-          rounded
-          text-white
-          text-center
-          font-bold"
-          value={statusFilter}
-          onChange={(e) => {
-            const value = e.target.value;
-            setStatusFilter(
-              value === "All" ? undefined : (value as CharacterFilterStatus),
-            );
-          }}
+            flex items-center gap-2
+            bg-gray-900
+            p-1
+            rounded-2xl
+            border border-gray-800
+          "
         >
-          <option>All</option>
-          <option>Alive</option>
-          <option>Dead</option>
-          <option>unknown</option>
-        </select>
+          {statusOptions.map((status) => {
+            const isActive =
+              (status === "All" && statusFilter === undefined) ||
+              statusFilter === status;
+
+            const activeStyles = {
+              All: "bg-cyan-500 text-white",
+              Alive: "bg-green-500 text-white",
+              Dead: "bg-red-500 text-white",
+              unknown: "bg-gray-500 text-white",
+            };
+
+            return (
+              <button
+                key={status}
+                onClick={() =>
+                  setStatusFilter(
+                    status === "All"
+                      ? undefined
+                      : (status as CharacterFilterStatus),
+                  )
+                }
+                className={`
+                  px-4 py-2
+                  rounded-xl
+                  font-medium
+                  cursor-pointer
+                  transition-all duration-200
+
+                  ${
+                    isActive
+                      ? activeStyles[status]
+                      : "text-gray-300 hover:bg-gray-800"
+                  }
+                `}
+              >
+                {status}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div className="max-w-360 mx-auto px-8">
@@ -88,6 +126,7 @@ function HomePage() {
                 key={character.id}
               />
             ))}
+
           {loadingCharacters &&
             Array.from({ length: 20 }).map((_, idx) => (
               <CharacterSkeleton key={idx} />
@@ -107,29 +146,26 @@ function HomePage() {
               disabled={page === 1 || loadingCharacters}
               onClick={handlePreviousPage}
               className="
-              cursor-pointer      
-              flex h-10 w-10 items-center justify-center
-              rounded-lg border border-cyan-800
-              bg-gray-800 text-lg font-bold text-cyan-400
-              transition-all duration-200
-              hover:bg-cyan-700 hover:text-white
-              disabled:cursor-not-allowed disabled:border-gray-700
-              disabled:bg-gray-900 disabled:text-gray-600
-              disabled:hover:bg-gray-900 disabled:hover:text-gray-600
-            "
-              aria-label="Previous page"
+                cursor-pointer      
+                flex h-10 w-10 items-center justify-center
+                rounded-lg border border-cyan-800
+                bg-gray-800 text-lg font-bold text-cyan-400
+                transition-all duration-200
+                hover:bg-cyan-700 hover:text-white
+                disabled:cursor-not-allowed disabled:border-gray-700
+                disabled:bg-gray-900 disabled:text-gray-600
+              "
             >
               {"<"}
             </button>
 
             <div
               className="
-              flex min-w-28 items-center justify-center
-              rounded-lg border border-gray-700
-              bg-gray-800 px-4 py-2
-              text-sm font-semibold text-white
-              shadow-md
-      "
+                flex min-w-28 items-center justify-center
+                rounded-lg border border-gray-700
+                bg-gray-800 px-4 py-2
+                text-sm font-semibold text-white
+              "
             >
               Page {page}
               <span className="ml-1 text-gray-400">
@@ -141,17 +177,15 @@ function HomePage() {
               disabled={page === characters?.info.pages || loadingCharacters}
               onClick={handleNextPage}
               className="
-              cursor-pointer  
-              flex h-10 w-10 items-center justify-center
-              rounded-lg border border-cyan-800
-              bg-gray-800 text-lg font-bold text-cyan-400
-              transition-all duration-200
-              hover:bg-cyan-700 hover:text-white
-              disabled:cursor-not-allowed disabled:border-gray-700
-              disabled:bg-gray-900 disabled:text-gray-600
-              disabled:hover:bg-gray-900 disabled:hover:text-gray-600
-      "
-              aria-label="Next page"
+                cursor-pointer  
+                flex h-10 w-10 items-center justify-center
+                rounded-lg border border-cyan-800
+                bg-gray-800 text-lg font-bold text-cyan-400
+                transition-all duration-200
+                hover:bg-cyan-700 hover:text-white
+                disabled:cursor-not-allowed disabled:border-gray-700
+                disabled:bg-gray-900 disabled:text-gray-600
+              "
             >
               {">"}
             </button>

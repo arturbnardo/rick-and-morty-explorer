@@ -24,6 +24,8 @@ function HomePage() {
     status: statusFilter,
   });
 
+  const hasNoCharacters = characters?.results?.length === 0;
+
   const handleNextPage = () => {
     setPage((prev) => prev + 1);
   };
@@ -58,7 +60,10 @@ function HomePage() {
           type="text"
           value={inputValue}
           placeholder="Search character..."
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            setPage(1);
+          }}
         />
 
         <div
@@ -85,13 +90,15 @@ function HomePage() {
             return (
               <button
                 key={status}
-                onClick={() =>
+                onClick={() => {
+                  setPage(1);
+
                   setStatusFilter(
                     status === "All"
                       ? undefined
                       : (status as CharacterFilterStatus),
-                  )
-                }
+                  );
+                }}
                 className={`
                   px-4 py-2
                   rounded-xl
@@ -127,25 +134,36 @@ function HomePage() {
               />
             ))}
 
+          {!loadingCharacters && characters?.results?.length === 0 && (
+            <div className="col-span-full text-center py-20">
+              <p className="text-3xl text-white font-semibold">
+                No characters found
+              </p>
+              <p className="text-gray-400 mt-2">
+                Try searching for another character
+              </p>
+            </div>
+          )}
+
           {loadingCharacters &&
             Array.from({ length: 20 }).map((_, idx) => (
               <CharacterSkeleton key={idx} />
             ))}
         </div>
 
-        <div className="mt-10 mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:justify-between">
-          <p className="text-sm text-gray-400">
-            <span className="font-semibold text-white">
-              {characters?.info.count ?? 0}
-            </span>{" "}
-            characters found
-          </p>
-
-          <div className="flex items-center gap-3">
-            <button
-              disabled={page === 1 || loadingCharacters}
-              onClick={handlePreviousPage}
-              className="
+        {!hasNoCharacters && (
+          <div className="mt-10 mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:justify-between">
+            <p className="text-sm text-gray-400">
+              <span className="font-semibold text-white">
+                {characters?.info.count ?? 0}
+              </span>{" "}
+              characters found
+            </p>
+            <div className="flex items-center gap-3">
+              <button
+                disabled={page === 1 || loadingCharacters}
+                onClick={handlePreviousPage}
+                className="
                 cursor-pointer      
                 flex h-10 w-10 items-center justify-center
                 rounded-lg border border-cyan-800
@@ -155,28 +173,28 @@ function HomePage() {
                 disabled:cursor-not-allowed disabled:border-gray-700
                 disabled:bg-gray-900 disabled:text-gray-600
               "
-            >
-              {"<"}
-            </button>
+              >
+                {"<"}
+              </button>
 
-            <div
-              className="
+              <div
+                className="
                 flex min-w-28 items-center justify-center
                 rounded-lg border border-gray-700
                 bg-gray-800 px-4 py-2
                 text-sm font-semibold text-white
               "
-            >
-              Page {page}
-              <span className="ml-1 text-gray-400">
-                / {characters?.info.pages ?? 1}
-              </span>
-            </div>
+              >
+                Page {page}
+                <span className="ml-1 text-gray-400">
+                  / {characters?.info.pages ?? 1}
+                </span>
+              </div>
 
-            <button
-              disabled={page === characters?.info.pages || loadingCharacters}
-              onClick={handleNextPage}
-              className="
+              <button
+                disabled={page === characters?.info.pages || loadingCharacters}
+                onClick={handleNextPage}
+                className="
                 cursor-pointer  
                 flex h-10 w-10 items-center justify-center
                 rounded-lg border border-cyan-800
@@ -186,11 +204,12 @@ function HomePage() {
                 disabled:cursor-not-allowed disabled:border-gray-700
                 disabled:bg-gray-900 disabled:text-gray-600
               "
-            >
-              {">"}
-            </button>
+              >
+                {">"}
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

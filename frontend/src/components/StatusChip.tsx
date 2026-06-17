@@ -12,9 +12,9 @@ const statusColor = {
 
 function StatusChip({ status, species }: StatusChipProps) {
   return (
-    <div className="flex items-center gap-2 text-white">
+    <div className="flex items-center gap-2 text-white mt-2">
       <div className={`w-2 h-2 rounded-full ${statusColor[status]}`}></div>
-      <span className="mt-2">
+      <span>
         {status} - {species}
       </span>
     </div>

@@ -124,14 +124,7 @@ function HomePage() {
         <div className="grid grid-cols-1 gap-4 lg:gap-6 xl:gap-8 lg:grid-cols-2 xl:grid-cols-3">
           {!loadingCharacters &&
             characters?.results.map((character) => (
-              <CharacterCard
-                name={character.name}
-                image={character.image}
-                status={character.status}
-                species={character.species}
-                id={character.id}
-                key={character.id}
-              />
+              <CharacterCard character={character} />
             ))}
 
           {!loadingCharacters && characters?.results?.length === 0 && (

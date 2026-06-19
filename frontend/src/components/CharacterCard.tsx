@@ -1,26 +1,17 @@
-import type { CharacterStatus } from "../types/character";
+import type { Character } from "../types/character";
 import { useNavigate } from "react-router-dom";
 import StatusChip from "./StatusChip";
+import FavoriteButton from "./FavoriteButton";
 
 interface CharacterCardProps {
-  name: string;
-  image: string;
-  status: CharacterStatus;
-  species: string;
-  id: number;
+  character: Character;
 }
 
-function CharacterCard({
-  name,
-  image,
-  status,
-  species,
-  id,
-}: CharacterCardProps) {
+function CharacterCard({ character }: CharacterCardProps) {
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
-    navigate(`/character/${id}`);
+    navigate(`/character/${character.id}`);
   };
 
   return (
@@ -45,8 +36,8 @@ function CharacterCard({
   "
     >
       <img
-        src={image}
-        alt={name}
+        src={character.image}
+        alt={character.name}
         className="
       h-60
       w-full
@@ -58,9 +49,14 @@ function CharacterCard({
       />
 
       <div className="flex flex-1 flex-col p-4">
-        <h2 className="text-xl sm:text-2xl font-bold text-white">{name}</h2>
+        <div className="flex justify-between gap-2">
+          <h2 className="text-xl sm:text-2xl font-bold text-white">
+            {character.name}
+          </h2>
+          <FavoriteButton character={character} />
+        </div>
 
-        <StatusChip status={status} species={species} />
+        <StatusChip status={character.status} species={character.species} />
 
         <div className="mt-auto flex justify-end">
           <button

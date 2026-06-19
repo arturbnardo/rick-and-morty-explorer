@@ -28,7 +28,7 @@ function FavoriteButton({ character }: FavoriteButtonProps) {
       >
         <Star
           size={24}
-          stroke="#06b6d4"
+          stroke={favorited ? "#facc15" : "#06b6d4"}
           fill={favorited ? "#facc15" : "none"}
         />
       </button>

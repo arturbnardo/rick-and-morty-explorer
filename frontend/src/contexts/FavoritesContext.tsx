@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import type { Character } from "../types/character";
 
 type FavoritesContextType = {
@@ -26,7 +32,15 @@ type FavoritesProviderProps = {
 };
 
 export const FavoritesProvider = ({ children }: FavoritesProviderProps) => {
-  const [favorites, setFavorites] = useState<Character[]>([]);
+  const [favorites, setFavorites] = useState<Character[]>(() => {
+    const storedFavs = localStorage.getItem("favorites");
+
+    return storedFavs ? JSON.parse(storedFavs) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   const addToFavorites = (character: Character) => {
     const alreadyExists = favorites.some((fav) => fav.id === character.id);

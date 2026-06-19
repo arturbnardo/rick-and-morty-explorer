@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useCharacterDetails } from "../hooks/useCharacterDetails";
 import StatusChip from "../components/StatusChip";
+import FavoriteButton from "../components/FavoriteButton";
 function CharacterDetailsPage() {
   const { id } = useParams();
   const characterId = Number(id);
@@ -19,9 +20,11 @@ function CharacterDetailsPage() {
       <div className="flex overflow-hidden bg-gray-800 rounded-2xl border border-cyan-800">
         <img src={data.image} alt={data.name} className="w-80 object-cover" />
 
-        <div className="flex flex-col justify-center text-white font-bold p-6 gap-6">
+        <div className="relative flex flex-col justify-center text-white font-bold p-6 gap-6">
           <h1 className="text-4xl font-bold pl-4">{data.name}</h1>
-
+          <div className="absolute top-6 right-6">
+            <FavoriteButton character={data} />
+          </div>
           <div className="flex flex-col gap-2">
             <StatusChip status={data.status} species={data.species} />
 

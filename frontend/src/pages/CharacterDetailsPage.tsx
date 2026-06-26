@@ -17,8 +17,12 @@ function CharacterDetailsPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="flex overflow-hidden bg-gray-800 rounded-2xl border border-cyan-800">
-        <img src={data.image} alt={data.name} className="w-80 object-cover" />
+      <div className="flex flex-col md:flex-row overflow-hidden bg-gray-800 rounded-2xl border border-cyan-800">
+        <img
+          src={data.image}
+          alt={data.name}
+          className="w-full md:w-80 object-cover"
+        />
 
         <div className="relative flex flex-col justify-center text-white font-bold p-6 gap-6">
           <h1 className="text-4xl font-bold pl-4">{data.name}</h1>

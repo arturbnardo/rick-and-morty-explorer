@@ -60,9 +60,9 @@ The project was created to practice modern front-end concepts such as componenti
 
 ## 📸 Preview
 
-![Home](./frontend/assets/home.png)
-![Character Details](./frontend/assets/character-details.png)
-![Favorites](./frontend/assets/favorites.png)
+![Home](./frontend/src/assets/home.png)
+![Character Details](./frontend/src/assets/character-details.png)
+![Favorites](./frontend/src/assets/favorites.png)
 
 ---
 

@@ -34,7 +34,20 @@ function HomePage() {
     setPage((prev) => prev - 1);
   };
 
-  if (error) return <p>{error}</p>;
+  if (error)
+    return (
+      <div className="min-h-screen flex items-center justify-center flex-col gap-4">
+        <p className="md:text-3xl text-2xl text-white font-semibold">
+          Something went wrong. Please try again.
+        </p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-6 py-3 bg-cyan-700 text-white text-lg font-bold rounded-xl hover:bg-cyan-900 transition-colors duration-200 hover:cursor-pointer"
+        >
+          Try again
+        </button>
+      </div>
+    );
 
   return (
     <div>

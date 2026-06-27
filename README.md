@@ -60,7 +60,9 @@ The project was created to practice modern front-end concepts such as componenti
 
 ## 📸 Preview
 
-> _(Screenshots will be added after deploy)_
+![Home](./frontend/assets/home.png)
+![Character Details](./frontend/assets/character-details.png)
+![Favorites](./frontend/assets/favorites.png)
 
 ---
 

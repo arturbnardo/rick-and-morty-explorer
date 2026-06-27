@@ -38,7 +38,10 @@ function HomePage() {
     return (
       <div className="min-h-screen flex items-center justify-center flex-col gap-4">
         <p className="md:text-3xl text-2xl text-white font-semibold">
-          Something went wrong. Please try again.
+          Something went wrong.
+        </p>
+        <p className="md:text-3xl text-2xl text-white font-semibold">
+          Please try again.
         </p>
         <button
           onClick={() => window.location.reload()}

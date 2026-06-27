@@ -8,7 +8,7 @@ The project was created to practice modern front-end concepts such as componenti
 
 ## 🌐 Live Demo
 
-🔗 [Rick and Morty Explorer](#) _(link will be added after deploy)_
+🔗 [Rick and Morty Explorer](https://rick-and-morty-explorer-theta.vercel.app/)
 
 ---
 

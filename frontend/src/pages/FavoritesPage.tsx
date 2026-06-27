@@ -27,7 +27,8 @@ function FavoritesPage() {
     <div>
       <h1 className="text-center text-cyan-400 text-2xl md:text-3xl my-8 ">
         My Favorites (
-        <span className="text-white font-bold">{favorites.length}</span>)
+        <span className="text-[#facc15] font-semibold">{favorites.length}</span>
+        )
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 max-w-360 mx-auto px-8 my-4">
         {favorites.map((character) => (
